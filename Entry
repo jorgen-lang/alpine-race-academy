@@ -1,0 +1,580 @@
+```html
+<!DOCTYPE html>
+<html lang="sv" class="h-full bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anmälan - Alpine Race Academy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        alpine: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            dark: '#0b1329',
+                            accent: '#38bdf8',
+                            gold: '#fbbf24'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .snow-pattern {
+            background-color: #0b1329;
+            background-image: radial-gradient(#38bdf8 0.75px, transparent 0.75px), radial-gradient(#38bdf8 0.75px, #0b1329 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            opacity: 0.95;
+        }
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(11, 19, 41, 0.6) 0%, rgba(11, 19, 41, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1551524559-8af4e6624178?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-100 min-h-full flex flex-col snow-pattern">
+
+    <!-- Header / Hero Section -->
+    <header class="hero-bg border-b border-slate-800 relative shadow-2xl">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+            <div class="inline-flex items-center gap-2 bg-alpine-500/20 border border-alpine-400/30 text-alpine-accent px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 backdrop-blur-md">
+                <i class="fa-solid fa-snowflake animate-spin-slow"></i> Säsongen 2026/2027
+            </div>
+            <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 drop-shadow-md">
+                ALPINE RACE ACADEMY
+            </h1>
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                Anmäl dig till våra kommersiella träningsläger. Proffsig coaching, videoanalys och bana anpassad för din utveckling oavsett ålder och nivå.
+            </p>
+            
+            <!-- Quick info badges -->
+            <div class="flex flex-wrap justify-center gap-4 mt-6 text-xs sm:text-sm text-slate-300 font-medium">
+                <div class="flex items-center gap-2 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                    <i class="fa-solid fa-user-ninja text-alpine-accent"></i> Licensierade tränare
+                </div>
+                <div class="flex items-center gap-2 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                    <i class="fa-solid fa-video text-alpine-accent"></i> Videoanalys ingår
+                </div>
+                <div class="flex items-center gap-2 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                    <i class="fa-solid fa-mountain-sun text-alpine-accent"></i> GS & SL Inriktning
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+        <form id="registrationForm" onsubmit="handleFormSubmit(event)" class="space-y-8">
+            
+            <!-- SEKTION 1: Personuppgifter -->
+            <div class="bg-slate-800/80 backdrop-blur-md border border-slate-700/70 rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-alpine-500/20 text-alpine-accent flex items-center justify-center text-lg font-bold">
+                        1
+                    </div>
+                    <div>
+                        <h2 class="font-heading text-xl sm:text-2xl font-bold text-white">Åkarens Personuppgifter</h2>
+                        <p class="text-xs sm:text-sm text-slate-400">Fyll i kontaktinformation för deltagaren</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- För- & Efternamn -->
+                    <div class="sm:col-span-2">
+                        <label for="fullName" class="block text-sm font-semibold text-slate-200 mb-2">
+                            För- och Efternamn <span class="text-rose-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            <input type="text" id="fullName" required placeholder="t.ex. Anna Svensson" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Ålder -->
+                    <div>
+                        <label for="age" class="block text-sm font-semibold text-slate-200 mb-2">
+                            Ålder / Födelseår <span class="text-rose-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-cake-candles"></i>
+                            </span>
+                            <input type="text" id="age" required placeholder="t.ex. 15 år (f. 2011)" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Hemmaklubb -->
+                    <div>
+                        <label for="club" class="block text-sm font-semibold text-slate-200 mb-2">
+                            Hemmaklubb <span class="text-rose-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-flag"></i>
+                            </span>
+                            <input type="text" id="club" required placeholder="t.ex. Djurgårdens IF AF, Sälen AK" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- E-post -->
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-slate-200 mb-2">
+                            E-postadress <span class="text-rose-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            <input type="email" id="email" required placeholder="namn@exempel.se" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Telefonnummer -->
+                    <div>
+                        <label for="phone" class="block text-sm font-semibold text-slate-200 mb-2">
+                            Telefonnummer <span class="text-rose-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            <input type="tel" id="phone" required placeholder="070-123 45 67" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-500 outline-none transition">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKTION 2: Lägerutbud & Schema -->
+            <div class="bg-slate-800/80 backdrop-blur-md border border-slate-700/70 rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700 pb-4 mb-6 gap-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-alpine-500/20 text-alpine-accent flex items-center justify-center text-lg font-bold">
+                            2
+                        </div>
+                        <div>
+                            <h2 class="font-heading text-xl sm:text-2xl font-bold text-white">Välj Träningsläger</h2>
+                            <p class="text-xs sm:text-sm text-slate-400">Du kan bocka i flera läger i schemat nedan</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-slate-700/70 text-slate-300 px-3 py-1 rounded-full self-start sm:self-auto border border-slate-600">
+                        <i class="fa-solid fa-check-double text-alpine-accent mr-1"></i> Flerval tillåtet
+                    </span>
+                </div>
+
+                <!-- Lista över läger -->
+                <div class="space-y-4" id="campList">
+
+                    <!-- Läger 1 -->
+                    <label class="camp-card group relative flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800/80 hover:border-alpine-500/50 transition cursor-pointer">
+                        <div class="flex items-start gap-4 mb-3 md:mb-0">
+                            <input type="checkbox" name="camps" value="Höstläger Juvass" data-price="4200" data-date="16-20 Oktober 2026"
+                                onchange="calculateTotal()" class="mt-1 w-5 h-5 rounded border-slate-600 text-alpine-500 focus:ring-alpine-accent bg-slate-800 cursor-pointer accent-alpine-500">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-alpine-accent transition">Höstläger Juvass (Norge)</span>
+                                    <span class="bg-amber-500/20 text-amber-300 text-xs px-2 py-0.5 rounded border border-amber-500/30 font-semibold">Glaciär</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-400 mt-1">
+                                    <span><i class="fa-regular fa-calendar text-alpine-accent mr-1"></i> 16 - 20 Okt 2026</span>
+                                    <span><i class="fa-solid fa-location-dot text-alpine-accent mr-1"></i> Juvasshytta</span>
+                                    <span><i class="fa-solid fa-person-skiing text-alpine-accent mr-1"></i> Storslalom (GS)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between w-full md:w-auto border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                            <div class="text-right md:ml-4">
+                                <span class="block font-bold text-lg text-white">4 200 kr</span>
+                                <span class="text-xs text-slate-400">exkl. boende/skipass</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Läger 2 -->
+                    <label class="camp-card group relative flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800/80 hover:border-alpine-500/50 transition cursor-pointer">
+                        <div class="flex items-start gap-4 mb-3 md:mb-0">
+                            <input type="checkbox" name="camps" value="Försäsong Kåbdalis" data-price="3900" data-date="12-15 November 2026"
+                                onchange="calculateTotal()" class="mt-1 w-5 h-5 rounded border-slate-600 text-alpine-500 focus:ring-alpine-accent bg-slate-800 cursor-pointer accent-alpine-500">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-alpine-accent transition">Försäsong Kåbdalis</span>
+                                    <span class="bg-sky-500/20 text-sky-300 text-xs px-2 py-0.5 rounded border border-sky-500/30 font-semibold">Snösäkert</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-400 mt-1">
+                                    <span><i class="fa-regular fa-calendar text-alpine-accent mr-1"></i> 12 - 15 Nov 2026</span>
+                                    <span><i class="fa-solid fa-location-dot text-alpine-accent mr-1"></i> Kåbdalis Ski Resort</span>
+                                    <span><i class="fa-solid fa-person-skiing text-alpine-accent mr-1"></i> Slalom & GS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between w-full md:w-auto border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                            <div class="text-right md:ml-4">
+                                <span class="block font-bold text-lg text-white">3 900 kr</span>
+                                <span class="text-xs text-slate-400">exkl. boende/skipass</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Läger 3 -->
+                    <label class="camp-card group relative flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800/80 hover:border-alpine-500/50 transition cursor-pointer">
+                        <div class="flex items-start gap-4 mb-3 md:mb-0">
+                            <input type="checkbox" name="camps" value="Jul & Nyår Åre" data-price="4800" data-date="27-30 December 2026"
+                                onchange="calculateTotal()" class="mt-1 w-5 h-5 rounded border-slate-600 text-alpine-500 focus:ring-alpine-accent bg-slate-800 cursor-pointer accent-alpine-500">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-alpine-accent transition">Vinterläger Åre</span>
+                                    <span class="bg-indigo-500/20 text-indigo-300 text-xs px-2 py-0.5 rounded border border-indigo-500/30 font-semibold">Intensiv</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-400 mt-1">
+                                    <span><i class="fa-regular fa-calendar text-alpine-accent mr-1"></i> 27 - 30 Dec 2026</span>
+                                    <span><i class="fa-solid fa-location-dot text-alpine-accent mr-1"></i> Åre Nationalarena</span>
+                                    <span><i class="fa-solid fa-person-skiing text-alpine-accent mr-1"></i> Banåkning & Timing</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between w-full md:w-auto border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                            <div class="text-right md:ml-4">
+                                <span class="block font-bold text-lg text-white">4 800 kr</span>
+                                <span class="text-xs text-slate-400">exkl. boende/skipass</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Läger 4 -->
+                    <label class="camp-card group relative flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800/80 hover:border-alpine-500/50 transition cursor-pointer">
+                        <div class="flex items-start gap-4 mb-3 md:mb-0">
+                            <input type="checkbox" name="camps" value="Sportlovsläger Sälen" data-price="4100" data-date="22-25 Februari 2027"
+                                onchange="calculateTotal()" class="mt-1 w-5 h-5 rounded border-slate-600 text-alpine-500 focus:ring-alpine-accent bg-slate-800 cursor-pointer accent-alpine-500">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-alpine-accent transition">Sportlovsläger Sälen</span>
+                                    <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2 py-0.5 rounded border border-emerald-500/30 font-semibold">Ungdom & Junior</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-400 mt-1">
+                                    <span><i class="fa-regular fa-calendar text-alpine-accent mr-1"></i> 22 - 25 Feb 2027</span>
+                                    <span><i class="fa-solid fa-location-dot text-alpine-accent mr-1"></i> Lindvallen / Hundfjället</span>
+                                    <span><i class="fa-solid fa-person-skiing text-alpine-accent mr-1"></i> Slalom & Teknik</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between w-full md:w-auto border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                            <div class="text-right md:ml-4">
+                                <span class="block font-bold text-lg text-white">4 100 kr</span>
+                                <span class="text-xs text-slate-400">exkl. boende/skipass</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Läger 5 -->
+                    <label class="camp-card group relative flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800/80 hover:border-alpine-500/50 transition cursor-pointer">
+                        <div class="flex items-start gap-4 mb-3 md:mb-0">
+                            <input type="checkbox" name="camps" value="Vårläger Hemsedal" data-price="4500" data-date="29 April - 2 Maj 2027"
+                                onchange="calculateTotal()" class="mt-1 w-5 h-5 rounded border-slate-600 text-alpine-500 focus:ring-alpine-accent bg-slate-800 cursor-pointer accent-alpine-500">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-alpine-accent transition">Våravslutning Hemsedal</span>
+                                    <span class="bg-purple-500/20 text-purple-300 text-xs px-2 py-0.5 rounded border border-purple-500/30 font-semibold">Vårskidåkning</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-400 mt-1">
+                                    <span><i class="fa-regular fa-calendar text-alpine-accent mr-1"></i> 29 Apr - 2 Maj 2027</span>
+                                    <span><i class="fa-solid fa-location-dot text-alpine-accent mr-1"></i> Hemsedal Skisenter</span>
+                                    <span><i class="fa-solid fa-person-skiing text-alpine-accent mr-1"></i> Fart & GS-fokus</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between w-full md:w-auto border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                            <div class="text-right md:ml-4">
+                                <span class="block font-bold text-lg text-white">4 500 kr</span>
+                                <span class="text-xs text-slate-400">exkl. boende/skipass</span>
+                            </div>
+                        </div>
+                    </label>
+
+                </div>
+
+                <!-- Sammanfattning av valda läger -->
+                <div class="mt-6 bg-slate-900/90 rounded-xl p-4 border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-sm text-slate-300 text-center sm:text-left">
+                        <span id="selectedCount" class="font-bold text-alpine-accent">0</span> läger valda
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 text-sm">Totalt träningsavgift:</span>
+                        <span id="totalPrice" class="font-heading text-2xl font-bold text-white">0 kr</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKTION 3: Extra information & Önskemål -->
+            <div class="bg-slate-800/80 backdrop-blur-md border border-slate-700/70 rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-4 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-alpine-500/20 text-alpine-accent flex items-center justify-center text-lg font-bold">
+                        3
+                    </div>
+                    <div>
+                        <h2 class="font-heading text-xl sm:text-2xl font-bold text-white">Övrig Information</h2>
+                        <p class="text-xs sm:text-sm text-slate-400">Erfarenhet, specialkost och övriga önskemål</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label for="experience" class="block text-sm font-semibold text-slate-200 mb-2">
+                            Åknivå & Tidigare Erfarenhet
+                        </label>
+                        <select id="experience" class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 px-4 text-white outline-none transition">
+                            <option value="Aktiv Tävlingsåkare">Aktiv Tävlingsåkare (Klubb & FIS/Ungdom)</option>
+                            <option value="Avancerad (Åkt bana tidigare)">Avancerad (Åkt bana/tränat i klubb tidigare)</option>
+                            <option value="Medel (God skidvana, ny på bana)">Medel (God allmän skidvana, ny på tävlingsbana)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="notes" class="block text-sm font-semibold text-slate-200 mb-2">
+                            Meddelande / Specialkost / Boendefrågor
+                        </label>
+                        <textarea id="notes" rows="4" placeholder="Ange om du har några allergier, medicinska tillstånd eller om du önskar tips på boende..."
+                            class="w-full bg-slate-900/90 border border-slate-700 focus:border-alpine-accent focus:ring-2 focus:ring-alpine-accent/30 rounded-xl py-3 px-4 text-white placeholder-slate-500 outline-none transition"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKTION 4: Villkor och Anmälan -->
+            <div class="bg-slate-800/80 backdrop-blur-md border border-slate-700/70 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+                <div class="flex items-start gap-3">
+                    <input type="checkbox" id="terms" required class="mt-1 w-5 h-5 rounded border-slate-600 text-alpine-500 focus:ring-alpine-accent bg-slate-800 cursor-pointer accent-alpine-500">
+                    <label for="terms" class="text-xs sm:text-sm text-slate-300 leading-relaxed cursor-pointer">
+                        Jag godkänner bokningsvillkoren för Alpine Race Academy. Anmälan är bindande 14 dagar efter bekräftelse. Jag godkänner att bilder/film från träningslägret kan användas i analys- och marknadsföringssyfte.
+                    </label>
+                </div>
+
+                <div id="errorAlert" class="hidden bg-rose-500/20 border border-rose-500/50 text-rose-200 text-sm p-4 rounded-xl flex items-center gap-3">
+                    <i class="fa-solid fa-circle-exclamation text-lg text-rose-400"></i>
+                    <span id="errorMessage">Vänligen välj minst ett läger för att fortsätta.</span>
+                </div>
+
+                <button type="submit" 
+                    class="w-full bg-gradient-to-r from-alpine-500 to-alpine-600 hover:from-alpine-600 hover:to-alpine-800 text-white font-heading font-bold text-lg py-4 px-8 rounded-xl shadow-lg shadow-alpine-500/20 transform hover:-translate-y-0.5 active:translate-y-0 transition duration-200 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-paper-plane"></i> Skicka Anmälan
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Social Share Banner -->
+        <div class="mt-12 text-center bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+            <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Dela detta formulär</h3>
+            <div class="flex justify-center gap-3">
+                <button onclick="shareOnSocial('facebook')" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </button>
+                <button onclick="shareOnSocial('instagram')" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-pink-600 text-white flex items-center justify-center transition">
+                    <i class="fa-brands fa-instagram"></i>
+                </button>
+                <button onclick="copyFormLink()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-alpine-500 text-white flex items-center justify-center transition" title="Kopiera länk">
+                    <i class="fa-solid fa-link"></i>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Bekräftelse -->
+    <div id="confirmationModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <!-- Top decorative stripe -->
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-alpine-accent via-alpine-500 to-alpine-accent"></div>
+
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 animate-bounce">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-white mb-1">Tack för din anmälan!</h3>
+                <p class="text-slate-400 text-sm">Vi har tagit emot din registrering. En bekräftelse har skickats per e-post.</p>
+            </div>
+
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 mb-6 space-y-3 text-sm">
+                <div class="flex justify-between border-b border-slate-700 pb-2">
+                    <span class="text-slate-400">Bokningsreferens:</span>
+                    <span id="modalRef" class="font-mono font-bold text-alpine-accent">#ARA-0000</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-700 pb-2">
+                    <span class="text-slate-400">Åkare:</span>
+                    <span id="modalName" class="font-semibold text-white">-</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-700 pb-2">
+                    <span class="text-slate-400">Klubb / Ålder:</span>
+                    <span id="modalClubAge" class="text-slate-200">-</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block mb-1">Valda Träningsläger:</span>
+                    <ul id="modalCampsList" class="list-disc list-inside text-white space-y-1 pl-1">
+                        <!-- Populates dynamically -->
+                    </ul>
+                </div>
+                <div class="flex justify-between pt-2 border-t border-slate-700 font-bold text-base">
+                    <span class="text-white">Totalt:</span>
+                    <span id="modalTotal" class="text-alpine-accent">0 kr</span>
+                </div>
+            </div>
+
+            <button onclick="closeModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 px-6 rounded-xl border border-slate-600 transition">
+                Stäng & Gå Tillbaka
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>© 2026 Alpine Race Academy. Alla rättigheter förbehållna.</p>
+            <p class="mt-2">För frågor, kontakta oss på <a href="mailto:info@alpineraceacademy.se" class="text-alpine-accent underline">info@alpineraceacademy.se</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logik -->
+    <script>
+        // Beräkna totalt pris och valt antal läger
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('input[name="camps"]:checked');
+            let total = 0;
+            checkboxes.forEach(cb => {
+                total += parseInt(cb.getAttribute('data-price') || 0);
+            });
+
+            document.getElementById('selectedCount').textContent = checkboxes.length;
+            document.getElementById('totalPrice').textContent = total.toLocaleString('sv-SE') + ' kr';
+
+            // Dölj felmeddelande om läger valts
+            if (checkboxes.length > 0) {
+                document.getElementById('errorAlert').classList.add('hidden');
+            }
+        }
+
+        // Hantera formulärinlämning
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const selectedCamps = document.querySelectorAll('input[name="camps"]:checked');
+            const errorAlert = document.getElementById('errorAlert');
+
+            // Validera att minst ett läger valts
+            if (selectedCamps.length === 0) {
+                errorAlert.classList.remove('hidden');
+                errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Hämta värden från formuläret
+            const name = document.getElementById('fullName').value;
+            const age = document.getElementById('age').value;
+            const club = document.getElementById('club').value;
+            const email = document.getElementById('email').value;
+
+            // Bygg sammanställning för modalen
+            document.getElementById('modalName').textContent = name;
+            document.getElementById('modalClubAge').textContent = `${club} (${age})`;
+
+            const modalList = document.getElementById('modalCampsList');
+            modalList.innerHTML = '';
+            let total = 0;
+
+            selectedCamps.forEach(cb => {
+                const li = document.createElement('li');
+                const price = parseInt(cb.getAttribute('data-price'));
+                const date = cb.getAttribute('data-date');
+                total += price;
+                li.innerHTML = `<span class="font-medium">${cb.value}</span> <span class="text-xs text-slate-400">(${date})</span>`;
+                modalList.appendChild(li);
+            });
+
+            document.getElementById('modalTotal').textContent = total.toLocaleString('sv-SE') + ' kr';
+            document.getElementById('modalRef').textContent = '#ARA-' + Math.floor(1000 + Math.random() * 9000);
+
+            // Visa modal
+            const modal = document.getElementById('confirmationModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('confirmationModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+
+            // Återställ formuläret
+            document.getElementById('registrationForm').reset();
+            calculateTotal();
+        }
+
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Anmäl dig till Alpine Race Academys träningsläger!');
+            if (platform === 'facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            } else if (platform === 'instagram') {
+                copyFormLink();
+            }
+        }
+
+        function copyFormLink() {
+            const textToCopy = window.location.href;
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = textToCopy;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            // Enkel feedback
+            const btn = event.currentTarget;
+            const originalIcon = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            setTimeout(() => {
+                btn.innerHTML = originalIcon;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+```
