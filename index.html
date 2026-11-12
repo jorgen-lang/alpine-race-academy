@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anmälan - Alpine Race Academy</title>
+    <title>Anmälan - 10kAlpine Camps</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome icons -->
@@ -46,9 +46,9 @@
             background-position: 0 0, 15px 15px;
             opacity: 0.95;
         }
-        .hero-bg {
+        ./bakgrund.jpg {
             background: linear-gradient(180deg, rgba(11, 19, 41, 0.6) 0%, rgba(11, 19, 41, 0.95) 100%), 
-                        url('https://images.unsplash.com/photo-1551524559-8af4e6624178?q=80&w=1600&auto=format&fit=crop');
+                        url('./bakgrund.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -66,9 +66,13 @@
 </head>
 <body class="font-sans text-slate-100 min-h-full flex flex-col snow-pattern">
 
-    <!-- Header / Hero Section -->
-    <header class="hero-bg border-b border-slate-800 relative shadow-2xl">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+   <!-- DIN LOGOTYP -->
+        <img src="./logo.png" alt="Alpine Race Academy Logotyp" class="h-20 sm:h-28 w-auto mx-auto mb-6 object-contain drop-shadow-lg">
+
+        <div class="inline-flex items-center gap-2 bg-alpine-500/20 border border-alpine-400/30 text-alpine-accent px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 backdrop-blur-md">
+            <i class="fa-solid fa-snowflake animate-spin-slow"></i> Säsongen 2026/2027
+        </div>
+        <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 drop-shadow-md">
             <div class="inline-flex items-center gap-2 bg-alpine-500/20 border border-alpine-400/30 text-alpine-accent px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 backdrop-blur-md">
                 <i class="fa-solid fa-snowflake animate-spin-slow"></i> Säsongen 2026/2027
             </div>
